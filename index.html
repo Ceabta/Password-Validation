@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="style.css">
+    <title>Validação de Senha</title>
+</head>
+<body>
+    <div class="box">
+        <div class="inputBox">
+            <input type="password" id="pswrd" placeholder="Password" onkeyup="checkPassword(this.value)">
+            <span id="toggleBtn"></span>
+        </div>
+        <div class="validation">
+            <ul>
+                <li id="lower">Pelo menos uma letra minúscula</li>
+                <li id="upper">Pelo menos uma letra maiúscula</li>
+                <li id="number">Pelo menos um número</li>
+                <li id="special">Pelo menos um caracter especial</li>
+                <li id="lenght">Pelo menos um 8 caracteres</li>
+            </ul>
+        </div>
+    </div>
+    <script>
+        let pswrd = document.getElementById('pswrd');
+        let toggleBtn = document.getElementById('toggleBtn');
+
+        let lowerCase = document.getElementById('lower');
+        let upperCase = document.getElementById('upper');
+        let digit = document.getElementById('number');
+        let specialChar = document.getElementById('special');
+        let minLenght = document.getElementById('lenght');
+
+        function checkPassword(data){
+            //Expressões Regulares
+            const lower = new RegExp('(?=.*[a-z])');
+            const upper = new RegExp('(?=.*[A-Z])');
+            const number = new RegExp('(?=.*[0-9])');
+            const special = new RegExp('(?=.*[!@#\$%\^&\*])');
+            const lenght = new RegExp('(?=.{8,})');
+
+            //Validação de letras minúsculas
+            if(lower.test(data))
+                lowerCase.classList.add('valid');
+             
+            else
+                lowerCase.classList.remove('valid');
+            
+            //Validação de letras maiúsculas
+            if(upper.test(data))
+                upperCase.classList.add('valid');
+             
+            else
+                upperCase.classList.remove('valid');
+            
+            //Validação de numero
+            if(number.test(data))
+                digit.classList.add('valid');
+             
+            else
+                digit.classList.remove('valid');
+            
+            //Validação de caracter especial
+            if(special.test(data))
+                specialChar.classList.add('valid');
+             
+            else
+                specialChar.classList.remove('valid');
+
+            //Validação de tamanho mínimo
+            if(lenght.test(data))
+                minLenght.classList.add('valid');
+             
+            else
+                minLenght.classList.remove('valid');
+            
+        }
+
+        //Mostrar e esconder senha
+        toggleBtn.onclick = function(){
+            if(pswrd.type === 'password'){
+                pswrd.setAttribute('type','text');
+                toggleBtn.classList.add('hide');
+            }
+            else {
+                pswrd.setAttribute('type','password');
+                toggleBtn.classList.remove('hide');
+            }
+        }
+    </script>
+</body>
+</html>
